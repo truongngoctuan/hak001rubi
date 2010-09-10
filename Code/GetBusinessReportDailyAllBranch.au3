@@ -1,3 +1,5 @@
+#include <BaseFunc\BOReportFunction.au3>
+
 WinWaitActive("[CLASS:ThunderRT6MDIForm]")
 ;-- truy cap vao menu bao cao -- tai chinh
 ;Send(!3); mo menu "bao cao"
@@ -41,21 +43,12 @@ MouseClick ( "left", 95, 175)
 ;tra ve relative binh thuong
 AutoItSetOption ("MouseCoordMode", 1)
 
-;-- bat trang bao cao
-Sleep(5000)
-;WinWaitActive("[CLASS:ThunderRT6FormDC]")
+;luu bao cao
+GetReportWithAvailablePath("C:\nt 0901")
 
-;-- chon nut report
-Send("{TAB}")
-Send("{ENTER}")
-
-;-- nhap duong dan + ten file
-Sleep(1000);
-MouseClick ( "left", 475, 390)
-;ControlSetText("[CLASS:ThunderRT6FormDC]","","[CLASS:ThunderRT6TextBox1; INSTANCE:1]","C:\NT 0901")
-Send("C:\NT 0901")
-
-;-- xuat file
-
-;-- tat report, chuan bi xuat cai tiep theo
-
+;-- tat form
+Sleep(500)
+AutoItSetOption ("MouseCoordMode", 0)
+MouseClick ( "left", 355, 11); click va`o nut dong y
+;tra ve relative binh thuong
+AutoItSetOption ("MouseCoordMode", 1)
