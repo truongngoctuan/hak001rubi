@@ -19,7 +19,7 @@ Func GetReportWithAvailablePath($ArgPath)
 	MouseClick ( "left", 1014, 7); click va`o nut dong
 EndFunc
 
-Func GetReportGoodsDetails($ArgBranch, $ArgFromDay, $ArgFromMonth, $ArgFromYear, $ArgToDay, $ArgToMonth, $ArgToYear, $ArgbTheoCa, $ArgPath)
+Func SetReportGoodsDetailsArg($ArgBranch, $ArgFromDay, $ArgFromMonth, $ArgFromYear, $ArgToDay, $ArgToMonth, $ArgToYear, $ArgbTheoCa)
 	;-- bat cua so bbtc
 	WinWaitActive("[CLASS:ThunderRT6FormDC]")
 
@@ -30,29 +30,21 @@ Func GetReportGoodsDetails($ArgBranch, $ArgFromDay, $ArgFromMonth, $ArgFromYear,
 	; chinh ngay cho "tu ngay"
 	ControlFocus("[CLASS:ThunderRT6FormDC]", "", "[CLASS:DTPicker20WndClass; INSTANCE:2]")
 	;Sleep(500);delay
-	Send($ArgFromDay)
+	Send(String($ArgFromDay))
 	Send("{RIGHT}")
-	Send($ArgFromMonth)
+	Send(String($ArgFromMonth))
 	Send("{RIGHT}")
-	Send($ArgFromYear)
+	Send(String($ArgFromYear))
 
 	; chinh ngay cho "den ngay"
 	ControlFocus("[CLASS:ThunderRT6FormDC]", "", "[CLASS:DTPicker20WndClass; INSTANCE:1]")
 	;Sleep(500);delay
-	Send($ArgToDay)
+	Send(String($ArgToDay))
 	Send("{RIGHT}")
-	Send($ArgToMonth)
+	Send(String($ArgToMonth))
 	Send("{RIGHT}")
-	Send($ArgToYear)
+	Send(String($ArgToYear))
 
 	;-- chinh cac thuoc tinh khac nhu danh dau check,...
-
 	ControlCommand ( "[CLASS:ThunderRT6FormDC]", "", "[CLASS:ThunderRT6CheckBox; INSTANCE:5]", "Check")
-
-	;-- ok
-	;chinh sang mode relative voi client cua window hien tai
-	AutoItSetOption ("MouseCoordMode", 2)
-	MouseClick ( "left", 95, 175)
-	;tra ve relative binh thuong
-	AutoItSetOption ("MouseCoordMode", 1)
 EndFunc
