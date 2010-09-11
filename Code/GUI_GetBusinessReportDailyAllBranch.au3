@@ -32,8 +32,8 @@ GUICtrlCreateLabel("Save Report As: ", 10, 65)
 $Edit_Path = GUICtrlCreateEdit("", 10, 80, 190, 20, BitOr($ES_WANTRETURN, $ES_READONLY))
 GUICtrlSetData ($Edit_Path, "C:\")
 
-$Bt_Brouse = GUICtrlCreateButton("...", 205, 78, 25)
-GUICtrlSetOnEvent($Bt_Brouse, "BrouseButton")
+$Bt_Browse = GUICtrlCreateButton("...", 205, 78, 25)
+GUICtrlSetOnEvent($Bt_Browse, "BrowseButton")
 
 ;-----------------------------------
 ;-- bt kich hoat chuong trinh
@@ -91,14 +91,28 @@ Func OKButton()
 		;MsgBox(0, "Date1", $NewDate[1])
 		;MsgBox(0, "Date2", $NewDate[2])
 		;MsgBox(0, "Date3", $NewDate[3])
-		GetBusinessReportOneDay($NewDate[3], $NewDate[2], $NewDate[1], GUICtrlRead($Edit_Path))
+		;kiem tra checkbox nao duoc danh dau thi lay cai do
+		Local $arrCheckedBranch[1]
+		$arrCheckedBranch[0] = 0
+		For $CBoxOneBranch In $CBox_arrBranch
+			If GUICtrlRead($CBoxOneBranch) == $GUI_CHECKED Then
+					$arrCheckedBranch[0] += 1
+					_ArrayAdd($arrCheckedBranch, GUICtrlRead($CBoxOneBranch, 1))
+				EndIf
+			Next
+
+		If $arrCheckedBranch[0] <> 0 Then
+			_ArrayDelete($arrCheckedBranch, 0)
+			;_ArrayDisplay($arrCheckedBranch, "Data From File")
+			GetBusinessReportOneDay($NewDate[3], $NewDate[2], $NewDate[1], GUICtrlRead($Edit_Path), $arrCheckedBranch)
+			EndIf
 	Next
 
 	GUISetState(@SW_SHOW)
 EndFunc
 
 ;------------------------------------------------------------------------------
-Func BrouseButton()
+Func BrowseButton()
 	Local $var = FileSelectFolder("Choose a folder.", "")
 	GUICtrlSetData ($Edit_Path, $var)
 EndFunc

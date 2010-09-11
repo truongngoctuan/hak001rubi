@@ -2,13 +2,13 @@
 #include <BaseFunc\ClickFunction.au3>
 #include <BaseFunc\FileBaseFunction.au3>
 
-Func GetBusinessReportOneDay($ArgDay, $ArgMonth, $ArgYear, $ArgFolderPath)
+Func GetBusinessReportOneDay($ArgDay, $ArgMonth, $ArgYear, $ArgFolderPath, $arrBranch)
 	WinWaitActive("[CLASS:ThunderRT6MDIForm]")
 	;-- truy cap vao menu bao cao -- tai chinh
 	Send("^w"); phim tat
 	;Sleep(500)
 	;-- for...
-	$arrBranch = ReadArrayDataFromFile("Branch.txt")
+	;$arrBranch = ReadArrayDataFromFile("Branch.txt")
 	;_ArrayDisplay($arrBranch, "Data From File")
 
 	FOR $OneBranch IN $arrBranch
