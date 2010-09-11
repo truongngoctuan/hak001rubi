@@ -4,9 +4,8 @@
 #include <GetBusinessReportDailyAllBranch.au3>
 #include <EditConstants.au3>
 
-
 Opt("GUIOnEventMode", 1)  ; Change to OnEvent mode
-$mainwindow = GUICreate("DailyReport - Finance", 300, 150)
+$mainwindow = GUICreate("DailyReport - Finance", 500, 150)
 GUISetOnEvent($GUI_EVENT_CLOSE, "CLOSEClicked")
 ;GUICtrlCreateLabel("Hello world! How are you?", 30, 10)
 
@@ -19,6 +18,7 @@ GUISetOnEvent($GUI_EVENT_CLOSE, "CLOSEClicked")
 ;~     MsgBox(4096,"","You chose " & $var)
 ;~ EndIf
 
+;-----------------------------------
 ;-- ctrl from date - to date
 GUICtrlCreateLabel("From Date:", 10, 10)
 $DP_FromDate = GUICtrlCreateDate ( "", 75, 8, 90, 20, $DTS_SHORTDATEFORMAT)
@@ -26,18 +26,36 @@ $DP_FromDate = GUICtrlCreateDate ( "", 75, 8, 90, 20, $DTS_SHORTDATEFORMAT)
 GUICtrlCreateLabel("To Date: ", 10, 40)
 $DP_ToDate = GUICtrlCreateDate ( "", 75, 36, 90, 20, $DTS_SHORTDATEFORMAT)
 
+;-----------------------------------
 ;-- ctrl - nhap duong dan
 GUICtrlCreateLabel("Save Report As: ", 10, 65)
-$Edit_Path = GUICtrlCreateEdit("", 10, 80, 250, 20, BitOr($ES_WANTRETURN, $ES_READONLY))
+$Edit_Path = GUICtrlCreateEdit("", 10, 80, 190, 20, BitOr($ES_WANTRETURN, $ES_READONLY))
 GUICtrlSetData ($Edit_Path, "C:\")
 
-$Bt_Brouse = GUICtrlCreateButton("...", 265, 78, 25)
+$Bt_Brouse = GUICtrlCreateButton("...", 205, 78, 25)
 GUICtrlSetOnEvent($Bt_Brouse, "BrouseButton")
 
+;-----------------------------------
 ;-- bt kich hoat chuong trinh
 $okbutton = GUICtrlCreateButton("OK", 120, 110, 60)
 GUICtrlSetOnEvent($okbutton, "OKButton")
 
+;-----------------------------------
+;-- list checkbox chon danh sach branch
+GUICtrlCreateLabel("Branch: ", 260, 10)
+$arrBranch = ReadArrayDataFromFile("Branch.txt")
+;_ArrayDisplay($arrBranch, "Data From File")
+;can them $arrCheckedBranch de quan ly
+Dim $CBox_arrBranch[1]
+$iCount = 0
+FOR $OneBranch IN $arrBranch
+	_ArrayAdd($CBox_arrBranch, GUICtrlCreateCheckbox ($OneBranch, 265, 25 + $iCount * 20))
+	GUICtrlSetState( $CBox_arrBranch[$iCount + 1], $GUI_CHECKED)
+	$iCount += 1;
+Next
+_ArrayDelete($CBox_arrBranch, 0)
+
+;-----------------------------------
 GUISetState(@SW_SHOW)
 
 While 1
