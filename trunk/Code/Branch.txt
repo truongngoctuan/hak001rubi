@@ -3,10 +3,10 @@
 ;branch cali 2 will be temporate disable ultil you delete ';'
 ; -  The name of branch copy from the name of BackOffice, if name different, 
 ;error will occur
+; -  use first letter '#' to notify this branch temporate hidden
 COM TAM CALI 1 - NT
 COM TAM CALI 2 - HBT
 COM TAM CALI 3 - LTT
 COM TAM CALI 4 - NVT
-COM TAM CALI 5 - NCT
+#COM TAM CALI 5 - NCT
 COM TAM CALI 7 - PARKSON 
-;hehe

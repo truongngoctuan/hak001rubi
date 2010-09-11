@@ -1,4 +1,16 @@
-﻿version 0.1.1
+﻿version 0.1.2
+-feather: more readonly branch in list branch (use readonly checkbox with uncheck state)
+
+future:
+-support first day or first month problem
+-feather: configuration form
+-faster in export by decrease Sleep time
+-save current state of list checked branch by use database
+-rebuild structure of this program
+-add conf plan
+-fix bug: still use readonly branch
+;---------------------------------------------
+version 0.1.1
 -fix bug: open branch.txt but not wait
 -fix bug: open browse dialog but not wait
 -fix bug: don't show window after do task
@@ -8,12 +20,12 @@
 
 future:
 -support first day or first month problem
--feather: more hidden branch in list branch (use readonly checkbox with uncheck state)
 -feather: configuration form
 -faster in export by decrease Sleep time
 -save current state of list checked branch by use database
 -rebuild structure of this program
 -add conf plan
+-feather: more readonly branch in list branch (use readonly checkbox with uncheck state)
 ;---------------------------------------------
 version 0.1.0
 -basics feature

@@ -3,6 +3,7 @@
 #include <Date.au3>
 #include <GetBusinessReportDailyAllBranch.au3>
 #include <EditConstants.au3>
+#include <ButtonConstants.au3>
 
 Opt("GUIOnEventMode", 1)  ; Change to OnEvent mode
 $WinWidth = 400
@@ -36,17 +37,9 @@ GUICtrlSetOnEvent($okbutton, "OKButton")
 ;-- list checkbox chon danh sach branch
 GUICtrlCreateLabel("Branch: ", $WinWidth / 2 + 15, 10)
 Dim $CBox_arrBranch[1]
+Dim $arrBranch
 
-$arrBranch = ReadArrayDataFromFile("Branch.txt")
-;_ArrayDisplay($arrBranch, "Data From File")
-;can them $arrCheckedBranch de quan ly
-;FOR $OneBranch IN $arrBranch
-For $iCount = 0 To $arrBranch[0] - 1 Step 1
-	_ArrayAdd($CBox_arrBranch, GUICtrlCreateCheckbox ($arrBranch[$iCount + 1], $WinWidth / 2 + 20, 35 + $iCount * 20))
-	GUICtrlSetState( $CBox_arrBranch[$iCount + 1], $GUI_CHECKED)
-Next
-
-$CBox_arrBranch[0] = $arrBranch[0]
+MakeListBranch()
 
 ;-----------------------------------
 ;-- them xoa sua list branch
@@ -125,16 +118,7 @@ Func BtAddBranch()
 	$CBox_arrBranch[0] = 0
 
 	;nap lai danh sach branch
-	$arrBranch = ReadArrayDataFromFile("Branch.txt")
-	;_ArrayDisplay($arrBranch, "Data From File")
-	;can them $arrCheckedBranch de quan ly
-	;FOR $OneBranch IN $arrBranch
-	For $iCount = 0 To $arrBranch[0] - 1 Step 1
-		_ArrayAdd($CBox_arrBranch, GUICtrlCreateCheckbox ($arrBranch[$iCount + 1], $WinWidth / 2 + 20, 35 + $iCount * 20))
-		GUICtrlSetState( $CBox_arrBranch[$iCount + 1], $GUI_CHECKED)
-	Next
-
-	$CBox_arrBranch[0] = $arrBranch[0]
+	MakeListBranch()
 EndFunc
 
 ;------------------------------------------------------------------------------
@@ -151,4 +135,26 @@ Func CLOSEClicked()
   ;and @GUI_WINHANDLE would equal $mainwindow
   ;MsgBox(0, "GUI Event", "You clicked CLOSE! Exiting...")
   Exit
+EndFunc
+
+Func MakeListBranch()
+	$arrBranch = ReadArrayDataFromFile("Branch.txt")
+	;_ArrayDisplay($arrBranch, "Data From File")
+	;can them $arrCheckedBranch de quan ly
+	;FOR $OneBranch IN $arrBranch
+	For $iCount = 0 To $arrBranch[0] - 1 Step 1
+		; kiem tra xem co # hay khong
+		;_ArrayAdd($CBox_arrBranch, GUICtrlCreateCheckbox ($arrBranch[$iCount + 1], $WinWidth / 2 + 20, 35 + $iCount * 20))
+
+		If StringLeft($arrBranch[$iCount + 1], 1) == "#" Then
+			_ArrayAdd($CBox_arrBranch, GUICtrlCreateCheckbox (StringRight($arrBranch[$iCount + 1], StringLen($arrBranch[$iCount + 1]) - 1), $WinWidth / 2 + 20, 35 + $iCount * 20))
+			GuiCtrlSetState($CBox_arrBranch[$iCount + 1],$GUI_DISABLE)
+		Else
+			_ArrayAdd($CBox_arrBranch, GUICtrlCreateCheckbox ($arrBranch[$iCount + 1], $WinWidth / 2 + 20, 35 + $iCount * 20))
+			GUICtrlSetState( $CBox_arrBranch[$iCount + 1], $GUI_CHECKED)
+		EndIf
+
+	Next
+
+	$CBox_arrBranch[0] = $arrBranch[0]
 EndFunc
