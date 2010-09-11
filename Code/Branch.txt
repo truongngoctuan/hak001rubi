@@ -1,3 +1,8 @@
+; -  The line which have first letter is ';' that mean this program will skip that line
+; -  If you change "COM TAM CALI 2 - HBT" to ";COM TAM CALI 2 - HBT", 
+;branch cali 2 will be temporate disable ultil you delete ';'
+; -  The name of branch copy from the name of BackOffice, if name different, 
+;error will occur
 COM TAM CALI 1 - NT
 COM TAM CALI 2 - HBT
 COM TAM CALI 3 - LTT

@@ -3,6 +3,7 @@
 Func ReadArrayDataFromFile($ArgFileName)
 	Local $file = FileOpen($ArgFileName, 0)
 	Local $ArrDataFromFile[1]
+	$ArrDataFromFile[0] = 0
 
 	; Check if file opened for reading OK
 	If $file = -1 Then
@@ -15,12 +16,18 @@ Func ReadArrayDataFromFile($ArgFileName)
 		$line = FileReadLine($file)
 		If @error = -1 Then ExitLoop
 		;MsgBox(0, "Line read:", $line)
-		_ArrayAdd($ArrDataFromFile, $line)
+
+		If StringLeft ($line, 1) == ";" Then
+			;donothing
+		Else
+			$ArrDataFromFile[0] += 1;
+			_ArrayAdd($ArrDataFromFile, $line)
+			EndIf
 	Wend
 
 	FileClose($file)
 
-	_ArrayDelete($ArrDataFromFile, 0)
+	;_ArrayDelete($ArrDataFromFile, 0)
 	;_ArrayDisplay($ArrDataFromFile, "Data From File")
 
 	Return $ArrDataFromFile
