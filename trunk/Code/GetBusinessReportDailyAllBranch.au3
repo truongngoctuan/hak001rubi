@@ -2,7 +2,7 @@
 #include <BaseFunc\ClickFunction.au3>
 #include <BaseFunc\FileBaseFunction.au3>
 
-Func GetBusinessReportOneDay($ArgDay, $ArgMonth, $ArgYear)
+Func GetBusinessReportOneDay($ArgDay, $ArgMonth, $ArgYear, $ArgFolderPath)
 	WinWaitActive("[CLASS:ThunderRT6MDIForm]")
 	;-- truy cap vao menu bao cao -- tai chinh
 	Send("^w"); phim tat
@@ -19,7 +19,7 @@ Func GetBusinessReportOneDay($ArgDay, $ArgMonth, $ArgYear)
 		;-- luu bao cao
 		Sleep(5000)
 		;Local $Path = "C:\" & $OneBranch & " " & String($ArgYear) & String($ArgMonth) & String($ArgDay)
-		Local $Path = StringFormat("C:\\%s %04d_%02d_%02d", $OneBranch, $ArgYear, $ArgMonth, $ArgDay)
+		Local $Path = StringFormat("%s%s %04d_%02d_%02d", $ArgFolderPath, $OneBranch, $ArgYear, $ArgMonth, $ArgDay)
 		GetReportWithAvailablePath($Path)
 	NEXT
 		;-- tat form
