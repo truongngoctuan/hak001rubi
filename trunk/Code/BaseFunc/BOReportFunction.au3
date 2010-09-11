@@ -36,13 +36,15 @@ Func SetReportGoodsDetailsArg($ArgBranch, $ArgFromDay, $ArgFromMonth, $ArgFromYe
 	; chinh ngay cho "tu ngay"
 
 	;ControlFocus("[CLASS:ThunderRT6FormDC]", "", "[CLASS:DTPicker20WndClass; INSTANCE:2]")
+
+	Click(2, 121, 54)
+	Send(String($ArgFromMonth))
+
 	Click(2, 100, 54)
-	;Sleep(100)
 	Send(String($ArgFromDay))
+
 	;Sleep(100)
 	Send("{RIGHT}")
-	Send(String($ArgFromMonth))
-	;Sleep(100)
 	Send("{RIGHT}")
 	Send(String($ArgFromYear))
 	;Sleep(100)
@@ -51,12 +53,14 @@ Func SetReportGoodsDetailsArg($ArgBranch, $ArgFromDay, $ArgFromMonth, $ArgFromYe
 
 	; chinh ngay cho "den ngay"
 	;ControlFocus("[CLASS:ThunderRT6FormDC]", "", "[CLASS:DTPicker20WndClass; INSTANCE:1]")
+
+	Click(2, 118, 83)
+	Send(String($ArgToMonth))
+
 	Click(2, 100, 83)
 	Send(String($ArgToDay))
-	;Sleep(100)
+
 	Send("{RIGHT}")
-	Send(String($ArgToMonth))
-	;Sleep(100)
 	Send("{RIGHT}")
 	Send(String($ArgToYear))
 	;Sleep(100)

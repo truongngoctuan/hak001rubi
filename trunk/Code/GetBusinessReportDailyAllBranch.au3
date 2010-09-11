@@ -6,7 +6,7 @@ Func GetBusinessReportOneDay($ArgDay, $ArgMonth, $ArgYear)
 	WinWaitActive("[CLASS:ThunderRT6MDIForm]")
 	;-- truy cap vao menu bao cao -- tai chinh
 	Send("^w"); phim tat
-
+	;Sleep(500)
 	;-- for...
 	$arrBranch = ReadArrayDataFromFile("Branch.txt")
 	;_ArrayDisplay($arrBranch, "Data From File")
@@ -17,8 +17,9 @@ Func GetBusinessReportOneDay($ArgDay, $ArgMonth, $ArgYear)
 		SetReportGoodsDetailsArg($OneBranch, $ArgDay, $ArgMonth, $ArgYear, $ArgDay, $ArgMonth, $ArgYear, True)
 
 		;-- luu bao cao
-		Sleep(5000);
-		Local $Path = "C:\" & $OneBranch & " " & String($ArgYear) & String($ArgMonth) & String($ArgDay)
+		Sleep(5000)
+		;Local $Path = "C:\" & $OneBranch & " " & String($ArgYear) & String($ArgMonth) & String($ArgDay)
+		Local $Path = StringFormat("C:\\%s %04d_%02d_%02d", $OneBranch, $ArgYear, $ArgMonth, $ArgDay)
 		GetReportWithAvailablePath($Path)
 	NEXT
 		;-- tat form
