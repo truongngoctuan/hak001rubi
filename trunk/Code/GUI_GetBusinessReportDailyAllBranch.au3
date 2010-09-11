@@ -6,7 +6,7 @@
 
 Opt("GUIOnEventMode", 1)  ; Change to OnEvent mode
 $WinWidth = 400
-$WinHeight = 225
+$WinHeight = 275
 $mainwindow = GUICreate("DailyReport - Finance", $WinWidth, $WinHeight)
 GUISetOnEvent($GUI_EVENT_CLOSE, "CLOSEClicked")
 
@@ -35,10 +35,11 @@ GUICtrlSetOnEvent($okbutton, "OKButton")
 ;-----------------------------------
 ;-- list checkbox chon danh sach branch
 GUICtrlCreateLabel("Branch: ", $WinWidth / 2 + 15, 10)
+Dim $CBox_arrBranch[1]
+
 $arrBranch = ReadArrayDataFromFile("Branch.txt")
 ;_ArrayDisplay($arrBranch, "Data From File")
 ;can them $arrCheckedBranch de quan ly
-Dim $CBox_arrBranch[1]
 ;FOR $OneBranch IN $arrBranch
 For $iCount = 0 To $arrBranch[0] - 1 Step 1
 	_ArrayAdd($CBox_arrBranch, GUICtrlCreateCheckbox ($arrBranch[$iCount + 1], $WinWidth / 2 + 20, 35 + $iCount * 20))
@@ -66,7 +67,7 @@ Func OKButton()
   ;and @GUI_WINHANDLE would equal $mainwindow
   ;MsgBox(0, "GUI Event", "You pressed OK!")
   ;MsgBox(0, "Date", GUICtrlRead($DP_FromDate))
-	GUISetState(@SW_MINIMIZE)
+	GUISetState(@SW_HIDE)
 
 	Local $FromDate
 	Local $FromTime
@@ -102,7 +103,7 @@ Func OKButton()
 
 		If $arrCheckedBranch[0] <> 0 Then
 			_ArrayDelete($arrCheckedBranch, 0)
-			_ArrayDisplay($arrCheckedBranch, "Data From File")
+			;_ArrayDisplay($arrCheckedBranch, "Data From File")
 			;GetBusinessReportOneDay($NewDate[3], $NewDate[2], $NewDate[1], GUICtrlRead($Edit_Path), $arrCheckedBranch)
 			EndIf
 	Next
@@ -113,13 +114,34 @@ EndFunc
 ;------------------------------------------------------------------------------
 Func BtAddBranch()
 	;hein notepad cho phep chinh suabranch
-	Run("notepad.exe Branch.txt")
+	GUISetState(@SW_HIDE)
+	RunWait("notepad.exe Branch.txt")
+	GUISetState(@SW_SHOW)
+	; huy danh sach cu
+	For $iCount = $CBox_arrBranch[0] To 1 Step -1
+		GUICtrlDelete($CBox_arrBranch[$iCount]);
+		_ArrayDelete($CBox_arrBranch, $iCount)
+	Next
+	$CBox_arrBranch[0] = 0
+
 	;nap lai danh sach branch
+	$arrBranch = ReadArrayDataFromFile("Branch.txt")
+	;_ArrayDisplay($arrBranch, "Data From File")
+	;can them $arrCheckedBranch de quan ly
+	;FOR $OneBranch IN $arrBranch
+	For $iCount = 0 To $arrBranch[0] - 1 Step 1
+		_ArrayAdd($CBox_arrBranch, GUICtrlCreateCheckbox ($arrBranch[$iCount + 1], $WinWidth / 2 + 20, 35 + $iCount * 20))
+		GUICtrlSetState( $CBox_arrBranch[$iCount + 1], $GUI_CHECKED)
+	Next
+
+	$CBox_arrBranch[0] = $arrBranch[0]
 EndFunc
 
 ;------------------------------------------------------------------------------
 Func BrowseButton()
+	GUISetState(@SW_HIDE)
 	Local $var = FileSelectFolder("Choose a folder.", "")
+	GUISetState(@SW_SHOW)
 	GUICtrlSetData ($Edit_Path, $var)
 EndFunc
 
