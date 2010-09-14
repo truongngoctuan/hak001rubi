@@ -12,7 +12,7 @@ Func GetReportWithAvailablePath($ArgPath)
 
 	;-- xuat file
 	MouseClick ( "left", 425, 435); click va`o nut dong y
-	Sleep(1000)
+	Sleep(5000)
 	; hien ra cai thong bao
 	MouseClick ( "left", 525, 465); click va`o nut dong y
 	Sleep(250)
