@@ -97,7 +97,7 @@ Func OKButton()
 		If $arrCheckedBranch[0] <> 0 Then
 			_ArrayDelete($arrCheckedBranch, 0)
 			;_ArrayDisplay($arrCheckedBranch, "Data From File")
-			;GetBusinessReportOneDay($NewDate[3], $NewDate[2], $NewDate[1], GUICtrlRead($Edit_Path), $arrCheckedBranch)
+			GetBusinessReportOneDay($NewDate[3], $NewDate[2], $NewDate[1], GUICtrlRead($Edit_Path), $arrCheckedBranch)
 			EndIf
 	Next
 
