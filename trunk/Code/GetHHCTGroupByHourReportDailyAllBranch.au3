@@ -2,10 +2,17 @@
 #include <BaseFunc\ClickFunction.au3>
 #include <BaseFunc\FileBaseFunction.au3>
 
-Func GetBusinessReportOneDay($ArgDay, $ArgMonth, $ArgYear, $ArgFolderPath, $arrBranch)
+Func GetHHCTGroupByHourReportOneDay($ArgDay, $ArgMonth, $ArgYear, $ArgFolderPath, $arrBranch)
 	WinWaitActive("[CLASS:ThunderRT6MDIForm]")
 	;-- truy cap vao menu bao cao -- tai chinh
-	Send("^w"); phim tat
+	;khong co phim tat
+	Send("!3")
+	Send("{DOWN}")
+	Send("{DOWN}")
+	Send("{DOWN}")
+	Send("{DOWN}")
+	Send("{ENTER}")
+
 	;Sleep(500)
 	;-- for...
 	;$arrBranch = ReadArrayDataFromFile("Branch.txt")
@@ -14,10 +21,10 @@ Func GetBusinessReportOneDay($ArgDay, $ArgMonth, $ArgYear, $ArgFolderPath, $arrB
 	FOR $OneBranch IN $arrBranch
 		;-- cung cap thong tin cho form bao cao hhct
 		;SetReportGoodsDetailsArg($OneBranch, 1, 9, 2010, 1, 9, 2010, True)
-		SetReportGoodsDetailsArg($OneBranch, $ArgDay, $ArgMonth, $ArgYear, $ArgDay, $ArgMonth, $ArgYear, True)
+		SetReportHHCTGroupByHourArg($OneBranch, $ArgDay, $ArgMonth, $ArgYear, $ArgDay, $ArgMonth, $ArgYear, True)
 
 		;-- luu bao cao
-		Sleep(7500)
+		Sleep(22500)
 		;Local $Path = "C:\" & $OneBranch & " " & String($ArgYear) & String($ArgMonth) & String($ArgDay)
 		Local $Path = StringFormat("%s%s %04d_%02d_%02d", $ArgFolderPath, $OneBranch, $ArgYear, $ArgMonth, $ArgDay)
 		GetReportWithAvailablePath($Path)
