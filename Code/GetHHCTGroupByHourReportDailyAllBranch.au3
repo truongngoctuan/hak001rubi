@@ -1,3 +1,4 @@
+
 #include <BaseFunc\BOReportFunction.au3>
 #include <BaseFunc\ClickFunction.au3>
 #include <BaseFunc\FileBaseFunction.au3>
@@ -24,7 +25,7 @@ Func GetHHCTGroupByHourReportOneDay($ArgDay, $ArgMonth, $ArgYear, $ArgFolderPath
 		SetReportHHCTGroupByHourArg($OneBranch, $ArgDay, $ArgMonth, $ArgYear, $ArgDay, $ArgMonth, $ArgYear, True)
 
 		;-- luu bao cao
-		Sleep(22500)
+		Sleep(15000)
 		;Local $Path = "C:\" & $OneBranch & " " & String($ArgYear) & String($ArgMonth) & String($ArgDay)
 		Local $Path = StringFormat("%s%s %04d_%02d_%02d", $ArgFolderPath, $OneBranch, $ArgYear, $ArgMonth, $ArgDay)
 		GetReportWithAvailablePath($Path)
@@ -33,4 +34,3 @@ Func GetHHCTGroupByHourReportOneDay($ArgDay, $ArgMonth, $ArgYear, $ArgFolderPath
 		Click(2, 277, 174);click va`o nut dong y
 		Sleep(100)
 EndFunc
-
